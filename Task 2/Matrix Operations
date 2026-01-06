@@ -1,0 +1,78 @@
+#include <stdio.h>
+
+#define ROW 2
+#define COL 2
+
+/* Function prototypes */
+void inputMatrix(int M[ROW][COL], char name);
+void addMatrices(int A[ROW][COL], int B[ROW][COL], int C[ROW][COL]);
+void multiplyMatrices(int A[ROW][COL], int B[ROW][COL], int C[ROW][COL]);
+void transposeMatrix(int A[ROW][COL], int T[COL][ROW]);
+void displayMatrix(int M[ROW][COL], const char *msg);
+
+int main(void) {
+    int A[ROW][COL], B[ROW][COL];
+    int sum[ROW][COL], product[ROW][COL], transpose[COL][ROW];
+
+    inputMatrix(A, 'A');
+    inputMatrix(B, 'B');
+
+    addMatrices(A, B, sum);
+    displayMatrix(sum, "Matrix Addition");
+
+    multiplyMatrices(A, B, product);
+    displayMatrix(product, "Matrix Multiplication");
+
+    transposeMatrix(A, transpose);
+    displayMatrix(transpose, "Transpose of Matrix A");
+
+    return 0;
+}
+
+/* Function definitions */
+
+void inputMatrix(int M[ROW][COL], char name) {
+    for (int i = 0; i < ROW; i++) {
+        for (int j = 0; j < COL; j++) {
+            printf("Enter %c[%d][%d]: ", name, i, j);
+            scanf("%d", &M[i][j]);
+        }
+    }
+}
+
+void addMatrices(int A[ROW][COL], int B[ROW][COL], int C[ROW][COL]) {
+    for (int i = 0; i < ROW; i++) {
+        for (int j = 0; j < COL; j++) {
+            C[i][j] = A[i][j] + B[i][j];
+        }
+    }
+}
+
+void multiplyMatrices(int A[ROW][COL], int B[ROW][COL], int C[ROW][COL]) {
+    for (int i = 0; i < ROW; i++) {
+        for (int j = 0; j < COL; j++) {
+            C[i][j] = 0;
+            for (int k = 0; k < COL; k++) {
+                C[i][j] += A[i][k] * B[k][j];
+            }
+        }
+    }
+}
+
+void transposeMatrix(int A[ROW][COL], int T[COL][ROW]) {
+    for (int i = 0; i < ROW; i++) {
+        for (int j = 0; j < COL; j++) {
+            T[j][i] = A[i][j];
+        }
+    }
+}
+
+void displayMatrix(int M[ROW][COL], const char *msg) {
+    printf("\n%s:\n", msg);
+    for (int i = 0; i < ROW; i++) {
+        for (int j = 0; j < COL; j++) {
+            printf("%d\t", M[i][j]);
+        }
+        printf("\n");
+    }
+}
