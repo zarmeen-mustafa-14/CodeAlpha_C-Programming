@@ -1,0 +1,40 @@
+#include <stdio.h>
+
+float calculate(int a, int b, char op);
+
+int main(void) {
+    int x, y;
+    char operator;
+    float result;
+
+    printf("Enter number 1: ");
+    scanf("%d", &x);
+
+    printf("Enter number 2: ");
+    scanf("%d", &y);
+
+    printf("Enter operation (+, -, *, /): ");
+    scanf(" %c", &operator);
+
+    result = calculate(x, y, operator);
+
+    if (operator == '/' && y == 0) {
+        printf("Error: Division by zero is not allowed.");
+    } else {
+        printf("The result is = %.2f", result);
+    }
+
+    return 0;
+}
+
+float calculate(int a, int b, char op) {
+    switch (op) {
+        case '+': return a + b;
+        case '-': return a - b;
+        case '*': return a * b;
+        case '/': return (b != 0) ? (float)a / b : 0;
+        default:
+            printf("Invalid operator!\n");
+            return 0;
+    }
+}
